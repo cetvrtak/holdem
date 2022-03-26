@@ -1,4 +1,5 @@
 var slots = [p1c1,p1c2,p2c1,p2c2,flip_1,flip_2,flip_3,turn,river];
+var cardsDealt = [];
 
 var it = deal();
 document.getElementById('deal').addEventListener("click", function () {
@@ -14,7 +15,7 @@ document.getElementById('deal').addEventListener("click", function () {
 function *deal() {
 	for (var slot of slots) {
 		setTimeout(function() {
-			document.getElementById(slot.id).textContent = randomNum() + randomSuit();
+			document.getElementById(slot.id).textContent = pickNewCard();
 			if (slot.id != "flip_3" && slot.id != "turn")
 			{
 				it.next();
@@ -28,6 +29,16 @@ function clearTable() {
 	for (var slot of slots) {
 		document.getElementById(slot.id).textContent = "";
 	}
+}
+
+function pickNewCard() {
+	var newCard = randomNum() + randomSuit();
+	if (newCard in cardsDealt)
+	{
+		pickNewCard();
+	}
+	cardsDealt.push(newCard);
+	return newCard;
 }
 
 function randomNum() {
