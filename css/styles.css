@@ -1,0 +1,41 @@
+#player_1 {
+	width: 100px;
+}
+
+#p1c1 {
+	width: 24px;
+	height: 24px;
+	border: 1px solid black;
+}
+
+#p1c2 {
+	width: 24px;
+	height: 24px;
+	border: 1px solid black;
+}
+
+#player_2 {
+	width: 100px;
+}
+
+#p2c1 {
+	width: 24px;
+	height: 24px;
+	border: 1px solid black;
+}
+
+#p2c2 {
+	width: 24px;
+	height: 24px;
+	border: 1px solid black;
+}
+
+#dealer {
+	width: 150px;
+}
+
+#flip_1, #flip_2, #flip_3, #turn, #river {
+	width: 24px;
+	height: 24px;
+	border: 1px solid black;
+}
