@@ -1,41 +1,68 @@
+#table {
+	position: relative;
+}
+
+#players {
+	position: absolute;
+	left: 0;
+	top: 0;
+}
+
 #player_1 {
+	position: relative;
 	width: 100px;
 }
 
-#p1c1 {
-	width: 24px;
-	height: 24px;
-	border: 1px solid black;
+#p1c1, #p1c2 {
+	position: absolute;
+	bottom: 33px;
+	width: 41px;
+	height: 54px;
 }
 
-#p1c2 {
-	width: 24px;
-	height: 24px;
-	border: 1px solid black;
+#p1c1, #p2c1 {
+	left: calc(50% - 45px);
+}
+
+#p1c2, #p2c2 {
+	right: calc(50% - 45px);
 }
 
 #player_2 {
+	position: relative;
 	width: 100px;
 }
 
-#p2c1 {
-	width: 24px;
-	height: 24px;
-	border: 1px solid black;
-}
-
-#p2c2 {
-	width: 24px;
-	height: 24px;
-	border: 1px solid black;
-}
-
-#dealer {
-	width: 150px;
+#p2c1, #p2c2 {
+	position: absolute;
+	width: 41px;
+	height: 54px;
+	margin-top: 15px;
 }
 
 #flip_1, #flip_2, #flip_3, #turn, #river {
-	width: 24px;
-	height: 24px;
-	border: 1px solid black;
+	position: absolute;
+	top: calc(50% - 20px);
+	width: 41px;
+	height: 54px;
+}
+
+#flip_1 {
+	left: calc(50% - 99px);
+}
+
+#flip_2 {
+	left: calc(50% - 57px);
+}
+
+#flip_3 {
+	left: calc(50% - 16px);
+}
+
+#turn {
+	left: calc(50% + 32px);
+}
+
+#river {
+	left: calc(50% + 75px);
 }
