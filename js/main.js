@@ -4,7 +4,7 @@ var cardsDealt = [];
 var it = deal();
 document.getElementById('deal').addEventListener("click", function () {
 	it.next();
-	if (document.getElementById("river").textContent != "")
+	if (document.getElementById("river").firstChild)
 	{
 		clearTable();
 		it = deal();
@@ -15,7 +15,12 @@ document.getElementById('deal').addEventListener("click", function () {
 function *deal() {
 	for (var slot of slots) {
 		setTimeout(function() {
-			document.getElementById(slot.id).textContent = pickNewCard();
+			var img = document.createElement("IMG");
+			img.src = "images/deck/" + pickNewCard();
+			img.style.width = '31px';
+			img.style.height = '44px';
+			img.style.borderRadius = '2px';
+			document.getElementById(slot.id).appendChild(img);
 			if (slot.id != "flip_3" && slot.id != "turn")
 			{
 				it.next();
@@ -32,8 +37,8 @@ function clearTable() {
 }
 
 function pickNewCard() {
-	var newCard = randomNum() + randomSuit();
-	if (newCard in cardsDealt)
+	var newCard = randomRank() + "_of_" + randomSuit() + ".png";
+	if (cardsDealt.includes(newCard))
 	{
 		pickNewCard();
 	}
@@ -41,12 +46,12 @@ function pickNewCard() {
 	return newCard;
 }
 
-function randomNum() {
-	var numbers = [2,3,4,5,6,7,8,9,10,"J","Q","K","A"];
-	return numbers[Math.floor(Math.random() * numbers.length)];
+function randomRank() {
+	var ranks = [2,3,4,5,6,7,8,9,10,"jack","queen","king","ace"];
+	return ranks[Math.floor(Math.random() * ranks.length)];
 };
 
 function randomSuit() {
-	var suits = ["H","S","T","C"];
+	var suits = ["hearts","spades","diamonds","clubs"];
 	return suits[Math.floor(Math.random() * suits.length)];
 };
