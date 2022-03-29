@@ -55,3 +55,28 @@ function randomSuit() {
 	var suits = ["hearts","spades","diamonds","clubs"];
 	return suits[Math.floor(Math.random() * suits.length)];
 };
+
+var playerLogging;
+function sit(evt) {
+	document.getElementById("username").value = "";
+	document.getElementById("buyin").value = "";
+	playerLogging = evt.target.id;
+	var login = document.getElementById("login");
+	login.style.display = "block";
+}
+
+document.getElementsByClassName("close")[0].addEventListener("click", function() {
+	closeLogin();
+})
+
+function closeLogin() {
+	var loginForm = document.getElementById("login");
+	loginForm.style.display = "none";
+}
+
+function login() {
+	document.getElementById(playerLogging + "_username").textContent = document.getElementById("username").value;
+	document.getElementById(playerLogging + "_cash").textContent = "$" + document.getElementById("buyin").value;
+	document.getElementById(playerLogging).style.display = "none";
+	closeLogin();
+}

@@ -13,7 +13,7 @@
 	width: 100px;
 }
 
-#p1c1, #p1c2 {
+#p1c1, #p1c2, #p1_cash {
 	position: absolute;
 	bottom: 33px;
 	width: 41px;
@@ -28,12 +28,17 @@
 	right: calc(50% - 45px);
 }
 
+#p1_cash, #p2_cash {
+	left: calc(50% + 45px);
+	color: white;
+}
+
 #player_2 {
 	position: relative;
 	width: 100px;
 }
 
-#p2c1, #p2c2 {
+#p2c1, #p2c2, #p2_cash {
 	position: absolute;
 	width: 41px;
 	height: 54px;
@@ -65,4 +70,26 @@
 
 #river {
 	left: calc(50% + 75px);
+}
+
+#login {
+	display: none;
+	position: fixed;
+	top: 15%;
+	left: 25%;
+	z-index: 40;
+	width: 30%;
+	height: 40%;
+	background: white;
+	border: 1px solid black;
+}
+
+.close {
+	float: right;
+}
+
+#confirm_login {
+	position: absolute;
+	left: 40%;
+	bottom: 15px;
 }
