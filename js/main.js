@@ -76,7 +76,23 @@ function closeLogin() {
 
 function login() {
 	document.getElementById(playerLogging + "_username").textContent = document.getElementById("username").value;
-	document.getElementById(playerLogging + "_cash").textContent = "$" + document.getElementById("buyin").value;
+
+	var buyin = document.getElementById("buyin").value;
+	document.getElementById(playerLogging + "_cash").textContent = "$" + buyin;
+
+	placeChips(playerLogging, buyin);
+
 	document.getElementById(playerLogging).style.display = "none";
 	closeLogin();
+}
+
+function placeChips(player, amount) {
+	let canvas = document.getElementById(player + "_stack");
+	let ctx = canvas.getContext("2d");
+	let img = new Image();
+	img.src = "images/chipstacks/medium_t.png";
+
+	img.onload = function() {
+		ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+	}
 }
