@@ -9,6 +9,7 @@
 	<button id="deal">Deal</button>
 	<div id="table">
 		<div id="players">
+		<div id="pot"></div>
 			<div id="login">
 				<span class="close" onclick="closeLogin()">&times;</span>
 				<span><br></span>
@@ -31,6 +32,7 @@
 					<div id="p2_cash"></div>
 					<canvas id="p2_stack"></canvas>
 				</div>
+				<div id="p2_bet"></div>
 			</div>
 			<img src="images/table_trimmed_rotated.png" width="100%">
 			<div id="dealer" class="container">
@@ -49,6 +51,7 @@
 					<div id="p1_cash"></div>
 					<canvas id="p1_stack"></canvas>
 				</div>
+				<div id="p1_bet"></div>
 				<div id="p1_data">
 					<div id="p1_username"></div>
 					<button id="p1" onclick="sit(event)">Sit</button>

@@ -3,6 +3,9 @@ var cardsDealt = [];
 
 var it = deal();
 document.getElementById('deal').addEventListener("click", function () {
+	bets = [10, 5];
+	updateBets();
+
 	it.next();
 	if (document.getElementById("river").firstChild)
 	{
@@ -95,4 +98,11 @@ function placeChips(player, amount) {
 	img.onload = function() {
 		ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
 	}
+}
+
+var bets = [];
+function updateBets() {
+	document.getElementById("p1_bet").textContent = "$" + bets[0];
+	document.getElementById("p2_bet").textContent = "$" + bets[1];
+	document.getElementById("pot").textContent = "Pot: $" + bets.reduce((sum, a) => sum + a, 0);
 }

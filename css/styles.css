@@ -13,7 +13,7 @@
 	width: 100px;
 }
 
-#p1c1, #p1c2, #p1_cash, #p1_stack {
+#p1c1, #p1c2, #p1_cash, #p1_stack, #p1_bet {
 	position: absolute;
 	bottom: 33px;
 	width: 41px;
@@ -39,17 +39,22 @@
 	width: 100px;
 }
 
-#p2c1, #p2c2, #p2_cash, #p2_stack {
+#p2c1, #p2c2, #p2_cash, #p2_stack, #p2_bet {
 	position: absolute;
 	width: 41px;
 	height: 54px;
 	margin-top: 15px;
 }
 
-#p1_stack, #p2_stack {
+#p1_stack, #p2_stack, #p1_bet, #p2_bet {
 	left: calc(50% + 45px);
 	height: 30px;
 	width: 30px;
+}
+
+#p1_bet, #p2_bet {
+	color: white;
+	margin: 50% 0px;
 }
 
 #flip_1, #flip_2, #flip_3, #turn, #river {
@@ -99,4 +104,13 @@
 	position: absolute;
 	left: 40%;
 	bottom: 15px;
+}
+
+#pot {
+	position: absolute;
+	left: calc(50% + 130px);
+	top: calc(50% + 50px);
+	height: 30px;
+	width: 30px;
+	color: white;
 }
