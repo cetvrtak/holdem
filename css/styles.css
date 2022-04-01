@@ -114,3 +114,17 @@
 	width: 30px;
 	color: white;
 }
+
+#p1_betPopup, #p2_betPopup {
+	position: absolute;
+	display: none;
+	width: 133px;
+	border: 1px solid black;
+	padding: 0px 10px 10px 10px;
+	margin-top: 75%;
+	background: white;
+}
+
+#p1_betAmount, #p2_betAmount {
+	width: 50%;
+}

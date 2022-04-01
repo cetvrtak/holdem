@@ -28,6 +28,9 @@ function *deal() {
 			{
 				it.next();
 			}
+			else {
+				placeBet("p2");
+			}
 		}, 500);
 		yield;
 	};
@@ -105,4 +108,34 @@ function updateBets() {
 	document.getElementById("p1_bet").textContent = "$" + bets[0];
 	document.getElementById("p2_bet").textContent = "$" + bets[1];
 	document.getElementById("pot").textContent = "Pot: $" + bets.reduce((sum, a) => sum + a, 0);
+}
+
+function placeBet(p) {
+	document.getElementById(p + "_betPopup").style.display = "block";
+	document.getElementById(p + "_betAmount").value = Math.abs(bets[0] - bets[1]);
+	document.getElementById(p + "_betAmount").min = Math.abs(bets[0] - bets[1]);
+}
+
+document.getElementById("p1_action").addEventListener("click", function() {
+	submitBet("p1")
+});
+document.getElementById("p2_action").addEventListener("click", function() {
+	submitBet("p2")
+});
+function submitBet(p) {
+	let betAmount = +document.getElementById(p + "_betAmount").value;
+	let playerIndex = p == "p1" ? 0 : 1;
+	bets[playerIndex] += betAmount;
+	updateBets();
+	document.getElementById(p + "_betPopup").style.display = "none";
+
+	if (bets[0] != bets[1])
+	{
+		p = p == "p1" ? "p2" : "p1";
+		placeBet(p);
+	}
+	else
+	{
+		it.next();
+	}
 }
