@@ -3,13 +3,14 @@ var cardsDealt = [];
 
 var it = deal();
 document.getElementById('deal').addEventListener("click", function () {
-	bets = [10, 5];
-	updateBets();
-
 	it.next();
 });
 
+var bets = [];
+var allBets = [];
 function *deal() {
+	bets = [10, 5];
+	allBets = [10, 5];
 	for (var slot of slots) {
 		setTimeout(function() {
 			var img = document.createElement("IMG");
@@ -26,6 +27,7 @@ function *deal() {
 				placeBet("p2");
 			}
 		}, 500);
+		updateBets();
 		yield;
 	};
 };
@@ -97,11 +99,12 @@ function placeChips(player, amount) {
 	}
 }
 
-var bets = [];
 function updateBets() {
-	document.getElementById("p1_bet").textContent = "$" + bets[0];
-	document.getElementById("p2_bet").textContent = "$" + bets[1];
-	document.getElementById("pot").textContent = "Pot: $" + bets.reduce((sum, a) => sum + a, 0);
+	let p1Bet = bets[0] != 0 ? "$" + bets[0] : "";
+	document.getElementById("p1_bet").textContent = p1Bet;
+	let p2Bet = bets[1] != 0 ? "$" + bets[1] : "";
+	document.getElementById("p2_bet").textContent = p2Bet;
+	document.getElementById("pot").textContent = "Pot: $" + allBets.reduce((sum, a) => sum + a, 0);
 }
 
 document.getElementById("p1_betAmount").addEventListener("change", function() {
@@ -127,6 +130,7 @@ function submitBet(p) {
 	let betAmount = +document.getElementById(p + "_betAmount").value;
 	let playerIndex = p == "p1" ? 0 : 1;
 	bets[playerIndex] += betAmount;
+	allBets.push(betAmount);
 	updateBets();
 	document.getElementById(p + "_betPopup").style.display = "none";
 
@@ -137,6 +141,7 @@ function submitBet(p) {
 	}
 	else if (!document.getElementById("river").firstChild)
 	{
+		bets = [0, 0];
 		it.next();
 	}
 	else
