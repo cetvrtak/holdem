@@ -7,12 +7,6 @@ document.getElementById('deal').addEventListener("click", function () {
 	updateBets();
 
 	it.next();
-	if (document.getElementById("river").firstChild)
-	{
-		clearTable();
-		it = deal();
-		it.next();
-	}
 });
 
 function *deal() {
@@ -24,7 +18,7 @@ function *deal() {
 			img.style.height = '44px';
 			img.style.borderRadius = '2px';
 			document.getElementById(slot.id).appendChild(img);
-			if (slot.id != "flip_3" && slot.id != "turn")
+			if (slot.id != "flip_3" && slot.id != "turn" && slot.id != "river")
 			{
 				it.next();
 			}
@@ -141,9 +135,13 @@ function submitBet(p) {
 		p = p == "p1" ? "p2" : "p1";
 		placeBet(p);
 	}
-	else
+	else if (!document.getElementById("river").firstChild)
 	{
 		it.next();
+	}
+	else
+	{
+		declareWinner();
 	}
 }
 
@@ -162,4 +160,10 @@ function updateActionButton(p) {
 	{
 		actionType.textContent = "Raise";
 	}
+}
+
+function declareWinner() {
+	clearTable();
+	it = deal();
+	it.next();
 }
