@@ -110,10 +110,17 @@ function updateBets() {
 	document.getElementById("pot").textContent = "Pot: $" + bets.reduce((sum, a) => sum + a, 0);
 }
 
+document.getElementById("p1_betAmount").addEventListener("change", function() {
+	updateActionButton("p1");
+});
+document.getElementById("p2_betAmount").addEventListener("change", function() {
+	updateActionButton("p2");
+});
 function placeBet(p) {
 	document.getElementById(p + "_betPopup").style.display = "block";
 	document.getElementById(p + "_betAmount").value = Math.abs(bets[0] - bets[1]);
 	document.getElementById(p + "_betAmount").min = Math.abs(bets[0] - bets[1]);
+	updateActionButton(p);
 }
 
 document.getElementById("p1_action").addEventListener("click", function() {
@@ -137,5 +144,22 @@ function submitBet(p) {
 	else
 	{
 		it.next();
+	}
+}
+
+function updateActionButton(p) {
+	let betAmount = document.getElementById(p + "_betAmount").value;
+	var actionType = document.getElementById(p + "_action");
+	if (betAmount == 0)
+	{
+		actionType.textContent = "Check";
+	}
+	else if (betAmount == Math.abs(bets[0] - bets[1]))
+	{
+		actionType.textContent = "Call";
+	}
+	else
+	{
+		actionType.textContent = "Raise";
 	}
 }
