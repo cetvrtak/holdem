@@ -8,6 +8,7 @@ document.getElementById('deal').addEventListener("click", function () {
 
 var bets = [];
 var allBets = [];
+var isInitialRoundOfBetting;
 function *deal() {
 	bets = [10, 5];
 	allBets = [10, 5];
@@ -24,6 +25,7 @@ function *deal() {
 				it.next();
 			}
 			else {
+				isInitialRoundOfBetting = true;
 				placeBet("p2");
 			}
 		}, 500);
@@ -134,10 +136,11 @@ function submitBet(p) {
 	updateBets();
 	document.getElementById(p + "_betPopup").style.display = "none";
 
-	if (bets[0] != bets[1])
+	if (bets[0] != bets[1] || isInitialRoundOfBetting)
 	{
 		p = p == "p1" ? "p2" : "p1";
 		placeBet(p);
+		isInitialRoundOfBetting = false;
 	}
 	else if (!document.getElementById("river").firstChild)
 	{
