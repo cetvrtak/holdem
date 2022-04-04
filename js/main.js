@@ -80,7 +80,9 @@ function closeLogin() {
 }
 
 function login() {
-	document.getElementById(playerLogging + "_username").textContent = document.getElementById("username").value;
+	let username = document.getElementById(playerLogging + "_username");
+	username.textContent = document.getElementById("username").value;
+	username.style.display = "block";
 
 	var buyin = document.getElementById("buyin").value;
 	document.getElementById(playerLogging + "_cash").textContent = "$" + buyin;

@@ -8,9 +8,14 @@
 	top: 0;
 }
 
-#player_1 {
+#player_1, #player_2 {
 	position: relative;
 	width: 100px;
+}
+
+#p1_username, #p2_username {
+	display: none;
+	height: 30px;
 }
 
 #p1c1, #p1c2, #p1_cash, #p1_stack, #p1_bet {
@@ -32,11 +37,6 @@
 	height: 30px;
 	left: calc(50% + 75px);
 	color: white;
-}
-
-#player_2 {
-	position: relative;
-	width: 100px;
 }
 
 #p2c1, #p2c2, #p2_cash, #p2_stack, #p2_bet {
