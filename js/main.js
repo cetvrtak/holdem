@@ -13,6 +13,8 @@ var isInitialRoundOfBetting;
 function *deal() {
 	bets = [10, 5];
 	allBets = [10, 5];
+	players.p1.cash -= bets[0];
+	players.p2.cash -= bets[1];
 	for (var slot of slots) {
 		setTimeout(function() {
 			var img = document.createElement("IMG");
@@ -79,15 +81,21 @@ function closeLogin() {
 	loginForm.style.display = "none";
 }
 
+var players = {};
 function login() {
+	let player = {
+		username: document.getElementById("username").value,
+		cash: +document.getElementById("buyin").value
+	}
+	players[playerLogging] = player;
+
 	let username = document.getElementById(playerLogging + "_username");
-	username.textContent = document.getElementById("username").value;
+	username.textContent = player.username;
 	username.style.display = "block";
 
-	var buyin = document.getElementById("buyin").value;
-	document.getElementById(playerLogging + "_cash").textContent = "$" + buyin;
+	document.getElementById(playerLogging + "_cash").textContent = "$" + player.cash;
 
-	placeChips(playerLogging, buyin);
+	placeChips(playerLogging, player.cash);
 
 	document.getElementById(playerLogging).style.display = "none";
 	closeLogin();
@@ -107,8 +115,10 @@ function placeChips(player, amount) {
 function updateBets() {
 	let p1Bet = bets[0] != 0 ? "$" + bets[0] : "";
 	document.getElementById("p1_bet").textContent = p1Bet;
+	document.getElementById("p1_cash").textContent = players.p1.cash;
 	let p2Bet = bets[1] != 0 ? "$" + bets[1] : "";
 	document.getElementById("p2_bet").textContent = p2Bet;
+	document.getElementById("p2_cash").textContent = players.p2.cash;
 	document.getElementById("pot").textContent = "Pot: $" + allBets.reduce((sum, a) => sum + a, 0);
 }
 
@@ -135,6 +145,7 @@ function submitBet(p) {
 	let betAmount = +document.getElementById(p + "_betAmount").value;
 	let playerIndex = p == "p1" ? 0 : 1;
 	bets[playerIndex] += betAmount;
+	players[p].cash -= betAmount;
 	allBets.push(betAmount);
 	updateBets();
 	document.getElementById(p + "_betPopup").style.display = "none";
@@ -175,11 +186,14 @@ function updateActionButton(p) {
 
 function declareWinner(p) {
 	let popup = document.getElementById(p + "_winPopup");
-	popup.textContent = "You won! $" + allBets.reduce((sum, a) => sum + a, 0);
+	let pot = allBets.reduce((sum, a) => sum + a, 0);
+	players[p].cash += pot;
+	popup.textContent = "You won! $" + pot;
 	popup.style.display = "block";
 
 	setTimeout(function() {
 		popup.style.display = "none";
+		document.getElementById(p + "_cash").textContent = "$" + players[p].cash;
 		clearTable();
 		it = deal();
 		it.next();
