@@ -3,6 +3,7 @@ var cardsDealt = [];
 
 var it = deal();
 document.getElementById('deal').addEventListener("click", function () {
+	event.target.style.display = "none";
 	it.next();
 });
 

@@ -72,7 +72,7 @@
 	left: calc(50% - 57px);
 }
 
-#flip_3 {
+#flip_3, #deal {
 	left: calc(50% - 16px);
 }
 
@@ -82,6 +82,11 @@
 
 #river {
 	left: calc(50% + 75px);
+}
+
+#deal {
+	position: absolute;
+	top: calc(50% + 60px);
 }
 
 #login {
@@ -121,8 +126,15 @@
 	width: 133px;
 	border: 1px solid black;
 	padding: 0px 10px 10px 10px;
-	margin-top: 75%;
 	background: white;
+}
+
+#p1_betPopup {
+	bottom: 125px;
+}
+
+#p2_betPopup {
+	margin-top: 75%;
 }
 
 #p1_betAmount, #p2_betAmount {
