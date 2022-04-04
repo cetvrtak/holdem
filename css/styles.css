@@ -120,7 +120,7 @@
 	color: white;
 }
 
-#p1_betPopup, #p2_betPopup {
+#p1_betPopup, #p2_betPopup, #p1_winPopup, #p2_winPopup {
 	position: absolute;
 	display: none;
 	width: 133px;
@@ -129,11 +129,11 @@
 	background: white;
 }
 
-#p1_betPopup {
+#p1_betPopup, #p1_winPopup {
 	bottom: 125px;
 }
 
-#p2_betPopup {
+#p2_betPopup, #p2_winPopup {
 	margin-top: 75%;
 }
 

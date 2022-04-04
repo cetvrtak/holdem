@@ -152,7 +152,7 @@ function submitBet(p) {
 	}
 	else
 	{
-		declareWinner();
+		declareWinner("p2");
 	}
 }
 
@@ -173,8 +173,15 @@ function updateActionButton(p) {
 	}
 }
 
-function declareWinner() {
-	clearTable();
-	it = deal();
-	it.next();
+function declareWinner(p) {
+	let popup = document.getElementById(p + "_winPopup");
+	popup.textContent = "You won! $" + allBets.reduce((sum, a) => sum + a, 0);
+	popup.style.display = "block";
+
+	setTimeout(function() {
+		popup.style.display = "none";
+		clearTable();
+		it = deal();
+		it.next();
+	}, 3000);
 }
