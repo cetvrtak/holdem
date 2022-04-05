@@ -1,6 +1,20 @@
 var slots = [p1c1,p1c2,p2c1,p2c2,flip_1,flip_2,flip_3,turn,river];
 var cardsDealt = [];
 
+var tableCnv = document.getElementById("table_img");
+var tableCtx = tableCnv.getContext("2d");
+var tableImg = new Image();
+tableImg.src = "images/table_trimmed_rotated.png";
+tableImg.onload = function() {
+	tableCnv.width = tableImg.width;
+	tableCnv.height = tableImg.height;
+	tableCtx.drawImage(tableImg, 0, 0, tableCnv.width, tableCnv.height);
+
+	document.getElementById("player_1").style.display = "block";
+	document.getElementById("player_2").style.display = "block";
+	document.getElementById("deal").style.display = "block";
+};
+
 var it = deal();
 document.getElementById('deal').addEventListener("click", function () {
 	event.target.style.display = "none";
