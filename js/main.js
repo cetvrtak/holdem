@@ -9,6 +9,10 @@ tableImg.onload = function() {
 	tableCnv.width = tableImg.width;
 	tableCnv.height = tableImg.height;
 	tableCtx.drawImage(tableImg, 0, 0, tableCnv.width, tableCnv.height);
+
+	document.getElementById("player_1").style.display = "block";
+	document.getElementById("player_2").style.display = "block";
+	document.getElementById("deal").style.display = "block";
 };
 
 var it = deal();
