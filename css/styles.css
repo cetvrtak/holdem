@@ -9,13 +9,29 @@
 }
 
 #player_1, #player_2 {
+	display: none;
 	position: relative;
+	left: 408px;
 	width: 100px;
+}
+
+#player_1 {
+	top: 420px;
+}
+
+#player_2 {
+	top: 13px;
+}
+
+#p1, #p2 {
+	position: relative;
+	left: 31px;
 }
 
 #p1_username, #p2_username {
 	display: none;
 	height: 30px;
+	color: white;
 }
 
 #p1c1, #p1c2, #p1_cash, #p1_stack, #p1_bet {
@@ -26,16 +42,16 @@
 }
 
 #p1c1, #p2c1 {
-	left: calc(50% - 45px);
+	left: 40px;
 }
 
 #p1c2, #p2c2 {
-	right: calc(50% - 45px);
+	left: 75px;
 }
 
 #p1_cash, #p2_cash {
 	height: 30px;
-	left: calc(50% + 75px);
+	left: 178px;
 	color: white;
 }
 
@@ -43,78 +59,81 @@
 	position: absolute;
 	width: 41px;
 	height: 54px;
-	margin-top: 15px;
 }
 
 #p1_stack, #p2_stack, #p1_bet, #p2_bet {
-	left: calc(50% + 45px);
+	left: 145px;
 	height: 30px;
 	width: 30px;
 }
 
 #p1_bet, #p2_bet {
 	color: white;
-	margin: 50% 0px;
+	margin: 30px 0px;
 }
 
 #flip_1, #flip_2, #flip_3, #turn, #river {
 	position: absolute;
-	top: calc(50% - 20px);
+	top: 222px;
 	width: 41px;
 	height: 54px;
 }
 
 #flip_1 {
-	left: calc(50% - 99px);
+	left: 381px;
 }
 
 #flip_2 {
-	left: calc(50% - 57px);
+	left: 423px;
 }
 
-#flip_3, #deal {
-	left: calc(50% - 16px);
+#flip_3 {
+	left: 464px;
 }
 
 #turn {
-	left: calc(50% + 32px);
+	left: 512px;
 }
 
 #river {
-	left: calc(50% + 75px);
+	left: 555px;
 }
 
 #deal {
+	display: none;
 	position: absolute;
-	top: calc(50% + 60px);
+	left: 456px;
+	top: 300px;
 }
 
 #login {
 	display: none;
 	position: fixed;
-	top: 15%;
-	left: 25%;
+	top: 55px;
+	left: 369px;
 	z-index: 40;
-	width: 30%;
-	height: 40%;
+	width: 266px;
+	height: 216px;
+	padding: 0px 15px;
 	background: white;
 	border: 1px solid black;
 }
 
 .close {
-	float: right;
+	position: absolute;
+	right: 5px;
 }
 
 #confirm_login {
 	position: absolute;
-	left: 40%;
+	left: 75px;
 	bottom: 15px;
 }
 
 #pot {
 	position: absolute;
-	left: calc(50% + 130px);
-	top: calc(50% + 50px);
+	left: 610px;
+	top: 291px;
 	height: 30px;
 	width: 30px;
 	color: white;
@@ -130,11 +149,11 @@
 }
 
 #p1_betPopup, #p1_winPopup {
-	bottom: 125px;
+	bottom: 94px;
 }
 
 #p2_betPopup, #p2_winPopup {
-	margin-top: 75%;
+	top: 82px;
 }
 
 #p1_betAmount, #p2_betAmount {
