@@ -109,22 +109,24 @@
 #login {
 	display: none;
 	position: fixed;
-	top: 15%;
-	left: 25%;
+	top: 136px;
+	left: 369px;
 	z-index: 40;
-	width: 30%;
-	height: 40%;
+	width: 221px;
+	height: 216px;
+	padding: 0px 15px;
 	background: white;
 	border: 1px solid black;
 }
 
 .close {
-	float: right;
+	position: absolute;
+	right: 5px;
 }
 
 #confirm_login {
 	position: absolute;
-	left: 40%;
+	left: 75px;
 	bottom: 15px;
 }
 
