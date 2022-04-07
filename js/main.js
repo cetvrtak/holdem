@@ -37,7 +37,7 @@ function *deal() {
 			img.style.height = '44px';
 			img.style.borderRadius = '2px';
 			document.getElementById(slot.id).appendChild(img);
-			if (slot.id != "flip_3" && slot.id != "turn" && slot.id != "river")
+			if (slot.id != "p2c2" && slot.id != "flip_3" && slot.id != "turn" && slot.id != "river")
 			{
 				it.next();
 			}
