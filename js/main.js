@@ -17,14 +17,20 @@ document.getElementById('deal').addEventListener("click", function () {
 	it.next();
 });
 
-var bets = [];
+var bets = {};
 var allBets = [];
 var isInitialRoundOfBetting;
+var dealer;
 function *deal() {
-	bets = [10, 5];
-	allBets = [10, 5];
-	players.p1.cash -= bets[0];
-	players.p2.cash -= bets[1];
+	let smallBlind = getNextPlayer(dealer);
+	let bigBlind = getNextPlayer(smallBlind);
+	bets[smallBlind] = 5;
+	bets[bigBlind] = 10;
+	allBets = [bets[smallBlind], bets[bigBlind]];
+	for (const p in players)
+	{
+		players[p].cash -= bets[p];
+	}
 	for (var slot of slots) {
 		setTimeout(function() {
 			var img = document.createElement("IMG");
@@ -39,7 +45,7 @@ function *deal() {
 			}
 			else {
 				isInitialRoundOfBetting = true;
-				placeBet("p2");
+				placeBet(smallBlind);
 			}
 		}, 500);
 		updateBets();
@@ -98,6 +104,10 @@ function login() {
 		cash: +document.getElementById("buyin").value
 	}
 	players[playerLogging] = player;
+	if (!dealer)
+	{
+		dealer = playerLogging;
+	}
 
 	document.getElementById(playerLogging).style.display = "none";
 	closeLogin();
@@ -138,12 +148,12 @@ function placeChips(player, amount) {
 }
 
 function updateBets() {
-	let p1Bet = bets[0] != 0 ? "$" + bets[0] : "";
-	document.getElementById("p1_bet").textContent = p1Bet;
-	document.getElementById("p1_cash").textContent = players.p1.cash;
-	let p2Bet = bets[1] != 0 ? "$" + bets[1] : "";
-	document.getElementById("p2_bet").textContent = p2Bet;
-	document.getElementById("p2_cash").textContent = players.p2.cash;
+	for (const p in players)
+	{
+		let bet = bets[p] != 0 ? "$" + bets[p] : "";
+		document.getElementById(p + "_bet").textContent = bet;
+		document.getElementById(p + "_cash").textContent = players[p].cash;
+	}
 	document.getElementById("pot").textContent = "Pot: $" + allBets.reduce((sum, a) => sum + a, 0);
 }
 
@@ -155,8 +165,8 @@ document.getElementById("p2_betAmount").addEventListener("change", function() {
 });
 function placeBet(p) {
 	document.getElementById(p + "_betPopup").style.display = "block";
-	document.getElementById(p + "_betAmount").value = Math.abs(bets[0] - bets[1]);
-	document.getElementById(p + "_betAmount").min = Math.abs(bets[0] - bets[1]);
+	document.getElementById(p + "_betAmount").value = Math.abs(bets[p] - getMaxBet());
+	document.getElementById(p + "_betAmount").min = Math.abs(bets[p] - getMaxBet());
 	updateActionButton(p);
 }
 
@@ -168,27 +178,27 @@ document.getElementById("p2_action").addEventListener("click", function() {
 });
 function submitBet(p) {
 	let betAmount = +document.getElementById(p + "_betAmount").value;
-	let playerIndex = p == "p1" ? 0 : 1;
-	bets[playerIndex] += betAmount;
+	bets[p] += betAmount;
 	players[p].cash -= betAmount;
 	allBets.push(betAmount);
 	updateBets();
 	document.getElementById(p + "_betPopup").style.display = "none";
 
-	if (bets[0] != bets[1] || isInitialRoundOfBetting)
+	let next = getNextPlayer(p);
+	if (bets[next] != getMaxBet() || isInitialRoundOfBetting)
 	{
-		p = p == "p1" ? "p2" : "p1";
-		placeBet(p);
+		placeBet(next);
 		isInitialRoundOfBetting = false;
 	}
 	else if (!document.getElementById("river").firstChild)
 	{
-		bets = [0, 0];
+		clearBets();
 		it.next();
 	}
 	else
 	{
 		declareWinner("p2");
+		dealer = getNextPlayer(dealer);
 	}
 }
 
@@ -199,7 +209,7 @@ function updateActionButton(p) {
 	{
 		actionType.textContent = "Check";
 	}
-	else if (betAmount == Math.abs(bets[0] - bets[1]))
+	else if (betAmount == Math.abs(bets[p] - getMaxBet()))
 	{
 		actionType.textContent = "Call";
 	}
@@ -242,3 +252,23 @@ document.getElementById("multi_player").addEventListener("click", function() {
 	document.getElementById("players").style.display = "block";
 	document.getElementById("main_menu").style.display = "none";
 });
+
+function getNextPlayer(p) {
+	for (const player in players)
+	{
+		if (player > p) return player;
+	}
+	return "p1";
+}
+
+function getMaxBet() {
+	let arr = Object.values(bets);
+	return Math.max(...arr);
+}
+
+function clearBets() {
+	for (const p in players)
+	{
+		bets[p] = 0;
+	}
+}
