@@ -3,13 +3,13 @@
 }
 
 #players {
+	display: none;
 	position: absolute;
 	left: 0;
 	top: 0;
 }
 
 #player_1, #player_2 {
-	display: none;
 	position: relative;
 	left: 408px;
 	width: 100px;
@@ -158,4 +158,36 @@
 
 #p1_betAmount, #p2_betAmount {
 	width: 50%;
+}
+
+#main_menu {
+	position: fixed;
+	left: 360px;
+	top: 75px;
+	z-index: 40;
+	width: 250px;
+	border: 1px solid grey;
+	border-radius: 20px;
+	padding: 25px 0px;
+	background-color: white;
+}
+
+#single_player, #multi_player {
+	width: 190px;
+	margin: 15px;
+	padding: 15px;
+}
+
+button, button:hover {
+	border-radius: 10px;
+	background-color: lightskyblue;
+	text-align: center;
+}
+
+button:hover {
+	background-color: #87ddfa;
+}
+
+button:disabled, button[disabled] {
+	background-color: grey;
 }

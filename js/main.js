@@ -9,10 +9,6 @@ tableImg.onload = function() {
 	tableCnv.width = tableImg.width;
 	tableCnv.height = tableImg.height;
 	tableCtx.drawImage(tableImg, 0, 0, tableCnv.width, tableCnv.height);
-
-	document.getElementById("player_1").style.display = "block";
-	document.getElementById("player_2").style.display = "block";
-	document.getElementById("deal").style.display = "block";
 };
 
 var it = deal();
@@ -103,16 +99,31 @@ function login() {
 	}
 	players[playerLogging] = player;
 
-	let username = document.getElementById(playerLogging + "_username");
-	username.textContent = player.username;
-	username.style.display = "block";
-
-	document.getElementById(playerLogging + "_cash").textContent = "$" + player.cash;
-
-	placeChips(playerLogging, player.cash);
-
 	document.getElementById(playerLogging).style.display = "none";
 	closeLogin();
+
+	if (singlePlayer)
+	{
+		players["p2"] = { username: "john_doe", cash: player.cash };
+	}
+
+	updatePlayers();
+}
+
+function updatePlayers() {
+	for (const player in players) {
+		let username = document.getElementById(player + "_username");
+		username.textContent = players[player].username;
+		username.style.display = "block";
+
+		document.getElementById(player + "_cash").textContent = "$" + players[player].cash;
+
+		placeChips(player, players[player].cash);
+		if (Object.keys(players).length > 1)
+		{
+			document.getElementById("deal").style.display = "block";
+		}
+	}
 }
 
 function placeChips(player, amount) {
@@ -213,3 +224,21 @@ function declareWinner(p) {
 		it.next();
 	}, 3000);
 }
+
+var singlePlayer;
+document.getElementById("single_player").addEventListener("click", function() {
+	singlePlayer = true;
+	document.getElementById("players").style.display = "block";
+	document.getElementById("main_menu").style.display = "none";
+
+	// Automatically log players in
+	var p1 = document.getElementById("p1");
+	p1.click();
+	p1.style.display = "none";
+	document.getElementById("p2").style.display = "none";
+});
+
+document.getElementById("multi_player").addEventListener("click", function() {
+	document.getElementById("players").style.display = "block";
+	document.getElementById("main_menu").style.display = "none";
+});
