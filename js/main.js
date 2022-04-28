@@ -90,11 +90,11 @@ function sit(evt) {
 
 document.getElementsByClassName("close")[0].addEventListener("click", function() {
 	closeLogin();
+	document.getElementById("main_menu").style.display = "block";
 })
 
 function closeLogin() {
-	var loginForm = document.getElementById("login");
-	loginForm.style.display = "none";
+	document.getElementById("login").style.display = "none";
 }
 
 var players = {};
