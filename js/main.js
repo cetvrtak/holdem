@@ -30,15 +30,12 @@ function *deal() {
 	for (const p in players)
 	{
 		players[p].cash -= bets[p];
+		players[p].cards = { "c1": pickNewCard(), "c2": pickNewCard()}
 	}
 	for (var slot of slots) {
 		setTimeout(function() {
-			var img = document.createElement("IMG");
-			img.src = "images/deck/" + pickNewCard();
-			img.style.width = '31px';
-			img.style.height = '44px';
-			img.style.borderRadius = '2px';
-			document.getElementById(slot.id).appendChild(img);
+			displayCard(slot);
+
 			if (slot.id != "p2c2" && slot.id != "flip_3" && slot.id != "turn" && slot.id != "river")
 			{
 				it.next();
@@ -114,6 +111,7 @@ function login() {
 
 	if (singlePlayer)
 	{
+		players["p1"].human = true;
 		players["p2"] = { username: "john_doe", cash: player.cash };
 	}
 
@@ -197,6 +195,7 @@ function submitBet(p) {
 	}
 	else
 	{
+		showAllCards();
 		declareWinner("p2");
 		dealer = getNextPlayer(dealer);
 	}
@@ -271,4 +270,49 @@ function clearBets() {
 	{
 		bets[p] = 0;
 	}
+}
+
+function showAllCards() {
+	for (const p in players)
+	{
+		let player = players[p];
+		for (const c in player.cards)
+		{
+			let card = player.cards[c];
+			img = createCardImage(card);
+			let slot = document.getElementById(p + c);
+			slot.replaceChild(img, slot.firstElementChild);
+		}
+	}
+}
+
+function createCardImage(card) {
+	let img = document.createElement("IMG");
+	img.style.width = '31px';
+	img.style.height = '44px';
+	img.style.borderRadius = '2px';
+	img.src = "images/deck/" + card;
+
+	return img;
+}
+
+function displayCard(slot) {
+	let img;
+	let currentPlayerId = slot.id.substring(0, 2);
+
+	// show non-player and human player cards - TODO: show only THIS player's cards
+	if (!players[currentPlayerId])
+	{
+		img = createCardImage(pickNewCard());
+	}
+	else if (!players[currentPlayerId].human)
+	{
+		img = createCardImage("backside.png");
+	}
+	else
+	{
+		let cardId = slot.id.substring(2, 4);
+		img = createCardImage(players[currentPlayerId].cards[cardId]);
+	}
+	document.getElementById(slot.id).appendChild(img);
 }
