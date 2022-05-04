@@ -162,6 +162,14 @@ document.getElementById("p2_betAmount").addEventListener("change", function() {
 	updateActionButton("p2");
 });
 function placeBet(p) {
+	if (!players[p].human)
+	{
+		document.getElementById(p + "_betAmount").value = aiBet(p);
+		setTimeout(function() {
+			submitBet(p);
+		}, 1000);
+		return;
+	}
 	document.getElementById(p + "_betPopup").style.display = "block";
 	document.getElementById(p + "_betAmount").value = Math.abs(bets[p] - getMaxBet());
 	document.getElementById(p + "_betAmount").min = Math.abs(bets[p] - getMaxBet());
@@ -315,4 +323,8 @@ function displayCard(slot) {
 		img = createCardImage(players[currentPlayerId].cards[cardId]);
 	}
 	document.getElementById(slot.id).appendChild(img);
+}
+
+function aiBet(p) {
+	return Math.abs(bets[p] - getMaxBet());
 }
