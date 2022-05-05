@@ -1,4 +1,4 @@
-var slots = [p1c1,p1c2,p2c1,p2c2,flip_1,flip_2,flip_3,turn,river];
+var slots = [p1c1,p1c2,p2c1,p2c2,flop_1,flop_2,flop_3,turn,river];
 var cardsDealt = [];
 
 var tableCnv = document.getElementById("table_img");
@@ -36,7 +36,7 @@ function *deal() {
 		setTimeout(function() {
 			displayCard(slot);
 
-			if (slot.id != "p2c2" && slot.id != "flip_3" && slot.id != "turn" && slot.id != "river")
+			if (slot.id != "p2c2" && slot.id != "flop_3" && slot.id != "turn" && slot.id != "river")
 			{
 				it.next();
 			}

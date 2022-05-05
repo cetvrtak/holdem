@@ -72,22 +72,22 @@
 	margin: 30px 0px;
 }
 
-#flip_1, #flip_2, #flip_3, #turn, #river {
+#flop_1, #flop_2, #flop_3, #turn, #river {
 	position: absolute;
 	top: 222px;
 	width: 41px;
 	height: 54px;
 }
 
-#flip_1 {
+#flop_1 {
 	left: 381px;
 }
 
-#flip_2 {
+#flop_2 {
 	left: 423px;
 }
 
-#flip_3 {
+#flop_3 {
 	left: 464px;
 }
 
