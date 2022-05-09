@@ -215,7 +215,7 @@ function submitBet(p) {
 	else
 	{
 		showAllCards();
-		declareWinner("p2");
+		declareWinner();
 		dealer = getNextPlayer(dealer);
 	}
 }
@@ -237,16 +237,80 @@ function updateActionButton(p) {
 	}
 }
 
-function declareWinner(p) {
-	let popup = document.getElementById(p + "_winPopup");
+function determineWinner() {
+	let winner = ["p2", 0];
+	for (const playerId in players)
+	{
+		let player = players[playerId];
+		player.rankCount = {};
+
+		for (const slot of slots)
+		{
+			const rank = slot.card[0];
+			if (!players[slot.id.substring(0, 2)] || slot.id.substring(0, 2) == playerId)
+			{
+				player.rankCount[rank] != undefined ? player.rankCount[rank]++ : player.rankCount[rank] = 1;
+			}
+		}
+		console.log(playerId, player.rankCount);
+
+		let sortedRanks = sortRanks(player.rankCount);
+
+		//let handsRanking = ["highCard", "onePair", "twoPair", "threeOfAKind", "straight", "flush", "fullHouse", "fourOfAKind", "straightFlush", "royalFlush"];
+		let score = getPlayerScore(sortedRanks);
+		if (score > winner[1])
+		{
+			winner = [playerId, score];
+		}
+	}
+	return winner[0];
+}
+
+function sortRanks(rankCount)
+{
+	let sortedRanks = [];
+	for (const rank in rankCount)
+	{
+		sortedRanks.push(rankCount[rank]);
+	}
+	sortedRanks.sort(function(a, b) {
+		return b - a;
+	});
+	console.log("sortedRanks:", sortedRanks);
+	return sortedRanks;
+}
+
+function getPlayerScore(sortedRanks) {
+	let score = 0;
+	let cardsCount = 0;
+	let i = 0;
+	while (cardsCount < 5)
+	{
+		score += Math.pow(sortedRanks[i], 2);
+		cardsCount += sortedRanks[i];
+		console.log(sortedRanks[i], cardsCount, score);
+		i++;
+	}
+	// The rest (5 - cardsCount) can be:
+	// 1: in case of 3x two pair or four of a kind + one pair or better
+	// 2: in case of 2x three of a kind
+	score += Math.pow(5 - cardsCount, 2);
+	console.log("score:", score);
+	return score;
+}
+
+function declareWinner() {
+	let winner = determineWinner();
+
+	let popup = document.getElementById(winner + "_winPopup");
 	let pot = allBets.reduce((sum, a) => sum + a, 0);
-	players[p].cash += pot;
+	players[winner].cash += pot;
 	popup.textContent = "You won! $" + pot;
 	popup.style.display = "block";
 
 	setTimeout(function() {
 		popup.style.display = "none";
-		document.getElementById(p + "_cash").textContent = "$" + players[p].cash;
+		document.getElementById(winner + "_cash").textContent = "$" + players[winner].cash;
 		clearTable();
 		it = deal();
 		it.next();
