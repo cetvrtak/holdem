@@ -1,5 +1,4 @@
 var slots = [p1c1,p1c2,p2c1,p2c2,flop_1,flop_2,flop_3,turn,river];
-var cardsDealt = [];
 
 var tableCnv = document.getElementById("table_img");
 var tableCtx = tableCnv.getContext("2d");
@@ -30,9 +29,10 @@ function *deal() {
 	for (const p in players)
 	{
 		players[p].cash -= bets[p];
-		players[p].cards = { "c1": pickNewCard(), "c2": pickNewCard()}
 	}
 	for (var slot of slots) {
+		slot.card = pickNewCard();
+
 		setTimeout(function() {
 			displayCard(slot);
 
@@ -53,16 +53,27 @@ function *deal() {
 function clearTable() {
 	for (var slot of slots) {
 		document.getElementById(slot.id).textContent = "";
+		slot.card = [];
 	}
 }
 
-function pickNewCard() {
-	var newCard = randomRank() + "_of_" + randomSuit() + ".png";
-	if (cardsDealt.includes(newCard))
+function isCardDealt(newCard) {
+	for (const slot of slots)
 	{
-		pickNewCard();
+		if (slot.card && slot.card[0] == newCard[0] && slot.card[1] == newCard[1])
+		{
+			return true;
+		}
 	}
-	cardsDealt.push(newCard);
+	return false;
+}
+
+function pickNewCard() {
+	var newCard = [randomRank(), randomSuit()];
+	if (isCardDealt(newCard))
+	{
+		newCard = pickNewCard();
+	}
 	return newCard;
 }
 
@@ -281,16 +292,11 @@ function clearBets() {
 }
 
 function showAllCards() {
-	for (const p in players)
+	for (const slot of slots)
 	{
-		let player = players[p];
-		for (const c in player.cards)
-		{
-			let card = player.cards[c];
-			img = createCardImage(card);
-			let slot = document.getElementById(p + c);
-			slot.replaceChild(img, slot.firstElementChild);
-		}
+		img = createCardImage(slot.card[0] + "_of_" + slot.card[1] + ".png");
+		let slotNode = document.getElementById(slot.id);
+		slotNode.replaceChild(img, slotNode.firstElementChild);
 	}
 }
 
@@ -305,22 +311,18 @@ function createCardImage(card) {
 }
 
 function displayCard(slot) {
+	let card = slot.card[0] + "_of_" + slot.card[1] + ".png";
 	let img;
 	let currentPlayerId = slot.id.substring(0, 2);
 
 	// show non-player and human player cards - TODO: show only THIS player's cards
-	if (!players[currentPlayerId])
+	if (!players[currentPlayerId] || players[currentPlayerId].human)
 	{
-		img = createCardImage(pickNewCard());
-	}
-	else if (!players[currentPlayerId].human)
-	{
-		img = createCardImage("backside.png");
+		img = createCardImage(card);
 	}
 	else
 	{
-		let cardId = slot.id.substring(2, 4);
-		img = createCardImage(players[currentPlayerId].cards[cardId]);
+		img = createCardImage("backside.png");
 	}
 	document.getElementById(slot.id).appendChild(img);
 }
