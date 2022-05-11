@@ -109,14 +109,15 @@
 #login {
 	display: none;
 	position: fixed;
-	top: 55px;
+	top: 100px;
 	left: 369px;
 	z-index: 40;
 	width: 266px;
-	height: 216px;
+	height: 195px;
 	padding: 0px 15px;
 	background: white;
 	border: 1px solid black;
+	border-radius: 20px;
 }
 
 .close {
@@ -144,7 +145,8 @@
 	display: none;
 	width: 133px;
 	border: 1px solid black;
-	padding: 0px 10px 10px 10px;
+	border-radius: 10px;
+	padding: 10px;
 	background: white;
 }
 
@@ -157,7 +159,13 @@
 }
 
 #p1_betAmount, #p2_betAmount {
+	width: 45%;
+	border-radius: 10px;
+}
+
+#p1_action, #p2_action {
 	width: 50%;
+	text-align: center;
 }
 
 #main_menu {

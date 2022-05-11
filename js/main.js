@@ -89,8 +89,7 @@ function randomSuit() {
 
 var playerLogging;
 function sit(evt) {
-	document.getElementById("username").value = "";
-	document.getElementById("buyin").value = "";
+	document.getElementById("buyin").value = 1000;
 	playerLogging = evt.target.id;
 	var login = document.getElementById("login");
 	login.style.display = "block";
