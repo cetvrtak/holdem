@@ -77,8 +77,8 @@ function pickNewCard() {
 	return newCard;
 }
 
+var ranks = ["ace","king","queen","jack","10","9","8","7","6","5","4","3","2"];
 function randomRank() {
-	var ranks = [2,3,4,5,6,7,8,9,10,"jack","queen","king","ace"];
 	return ranks[Math.floor(Math.random() * ranks.length)];
 };
 
@@ -237,7 +237,7 @@ function updateActionButton(p) {
 }
 
 function determineWinner() {
-	let winner = ["p2", 0];
+	let winner = ["p1", 0];
 	for (const playerId in players)
 	{
 		let player = players[playerId];
@@ -251,13 +251,16 @@ function determineWinner() {
 				player.rankCount[rank] != undefined ? player.rankCount[rank]++ : player.rankCount[rank] = 1;
 			}
 		}
-		console.log(playerId, player.rankCount);
-
-		let sortedRanks = sortRanks(player.rankCount);
+		sortRanks(player);
+		console.log(player.username, player.rankCount, player.sortedRanks);
 
 		//let handsRanking = ["highCard", "onePair", "twoPair", "threeOfAKind", "straight", "flush", "fullHouse", "fourOfAKind", "straightFlush", "royalFlush"];
-		let score = getPlayerScore(sortedRanks);
+		let score = getPlayerScore(player);
 		if (score > winner[1])
+		{
+			winner = [playerId, score];
+		}
+		else if (score == winner[1] && player == breakTie(player, players[winner[0]]))
 		{
 			winner = [playerId, score];
 		}
@@ -265,29 +268,27 @@ function determineWinner() {
 	return winner[0];
 }
 
-function sortRanks(rankCount)
+function sortRanks(player)
 {
-	let sortedRanks = [];
-	for (const rank in rankCount)
+	player.sortedRanks = [];
+	for (const rank in player.rankCount)
 	{
-		sortedRanks.push(rankCount[rank]);
+		player.sortedRanks.push([rank, player.rankCount[rank]]);
 	}
-	sortedRanks.sort(function(a, b) {
-		return b - a;
+	player.sortedRanks.sort(function(a, b) {
+		return b[1] - a[1] || ranks.indexOf(a[0]) - ranks.indexOf(b[0]);
 	});
-	console.log("sortedRanks:", sortedRanks);
-	return sortedRanks;
 }
 
-function getPlayerScore(sortedRanks) {
+function getPlayerScore(player) {
 	let score = 0;
 	let cardsCount = 0;
 	let i = 0;
 	while (cardsCount < 5)
 	{
-		score += Math.pow(sortedRanks[i], 2);
-		cardsCount += sortedRanks[i];
-		console.log(sortedRanks[i], cardsCount, score);
+		score += Math.pow(player.sortedRanks[i][1], 2);
+		cardsCount += player.sortedRanks[i][1];
+		console.log(player.sortedRanks[i][1], cardsCount, score);
 		i++;
 	}
 	// The rest (5 - cardsCount) can be:
@@ -392,4 +393,17 @@ function displayCard(slot) {
 
 function aiBet(p) {
 	return Math.abs(bets[p] - getMaxBet());
+}
+
+function breakTie(p1, p2) {
+	for (var i = 0; p1.sortedRanks[i] && p2.sortedRanks[i]; i++)
+	{
+		if (ranks.indexOf(p1.sortedRanks[i][0]) == ranks.indexOf(p2.sortedRanks[i][0]))
+		{
+			continue;
+		}
+		var winner = ranks.indexOf(p1.sortedRanks[i][0]) < ranks.indexOf(p2.sortedRanks[i][0]) ? p1 : p2;
+		console.log(winner.username, "wins a tie-break with ", winner.sortedRanks[i][0]);
+		return winner;
+	}
 }
