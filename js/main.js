@@ -236,6 +236,17 @@ function updateActionButton(p) {
 	}
 }
 
+var handsRanking = {5: "High Card",
+		7: "One Pair",
+		9: "Two Pair",
+		11: "Three Of A Kind",
+		12: "Straight",
+		12.5: "Flush",
+		13: "Full House",
+		17: "Four Of A Kind",
+		18: "Straight Flush",
+		19: "Royal Flush"};
+
 function determineWinner() {
 	let winner = ["p1", 0];
 	for (const playerId in players)
@@ -254,18 +265,17 @@ function determineWinner() {
 		sortRanks(player);
 		console.log(player.username, player.rankCount, player.sortedRanks);
 
-		//let handsRanking = ["highCard", "onePair", "twoPair", "threeOfAKind", "straight", "flush", "fullHouse", "fourOfAKind", "straightFlush", "royalFlush"];
-		let score = getPlayerScore(player);
-		if (score > winner[1])
+		determineScore(player);
+		if (player.score > winner[1])
 		{
-			winner = [playerId, score];
+			winner = [playerId, player.score];
 		}
-		else if (score == winner[1] && player == breakTie(player, players[winner[0]]))
+		else if (player.score == winner[1] && player == breakTie(player, players[winner[0]]))
 		{
-			winner = [playerId, score];
+			winner = [playerId, player.score];
 		}
 	}
-	return winner[0];
+	return winner;
 }
 
 function sortRanks(player)
@@ -280,37 +290,36 @@ function sortRanks(player)
 	});
 }
 
-function getPlayerScore(player) {
-	let score = 0;
+function determineScore(player) {
+	player.score = 0;
 	let cardsCount = 0;
 	let i = 0;
 	while (cardsCount < 5)
 	{
-		score += Math.pow(player.sortedRanks[i][1], 2);
+		player.score += Math.pow(player.sortedRanks[i][1], 2);
 		cardsCount += player.sortedRanks[i][1];
-		console.log(player.sortedRanks[i][1], cardsCount, score);
+		console.log(player.sortedRanks[i][1], cardsCount, player.score);
 		i++;
 	}
 	// The rest (5 - cardsCount) can be:
 	// 1: in case of 3x two pair or four of a kind + one pair or better
 	// 2: in case of 2x three of a kind
-	score += Math.pow(5 - cardsCount, 2);
-	console.log("score:", score);
-	return score;
+	player.score += Math.pow(5 - cardsCount, 2);
+	console.log("score:", player.score);
 }
 
 function declareWinner() {
 	let winner = determineWinner();
 
-	let popup = document.getElementById(winner + "_winPopup");
+	let popup = document.getElementById(winner[0] + "_winPopup");
 	let pot = allBets.reduce((sum, a) => sum + a, 0);
-	players[winner].cash += pot;
-	popup.textContent = "You won! $" + pot;
+	players[winner[0]].cash += pot;
+	popup.textContent = handsRanking[winner[1]] + " You won $" + pot;
 	popup.style.display = "block";
 
 	setTimeout(function() {
 		popup.style.display = "none";
-		document.getElementById(winner + "_cash").textContent = "$" + players[winner].cash;
+		document.getElementById(winner[0] + "_cash").textContent = "$" + players[winner[0]].cash;
 		clearTable();
 		it = deal();
 		it.next();
