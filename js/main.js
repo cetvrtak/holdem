@@ -337,6 +337,9 @@ document.getElementById("single_player").addEventListener("click", function() {
 	p1.click();
 	p1.style.display = "none";
 	document.getElementById("p2").style.display = "none";
+
+	document.body.style.zoom=1.65;
+	window.scrollBy(180, 0);
 });
 
 document.getElementById("multi_player").addEventListener("click", function() {
