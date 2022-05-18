@@ -50,7 +50,7 @@ function *deal() {
 	};
 };
 
-function clearTable() {
+function resetTable() {
 	for (var slot of slots) {
 		document.getElementById(slot.id).textContent = "";
 		document.getElementById(slot.id).style.opacity = "1";
@@ -329,7 +329,7 @@ function declareWinner() {
 	setTimeout(function() {
 		popup.style.display = "none";
 		document.getElementById(winner[0] + "_cash").textContent = "$" + players[winner[0]].cash;
-		clearTable();
+		resetTable();
 		it = deal();
 		it.next();
 	}, 3000);
