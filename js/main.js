@@ -314,7 +314,7 @@ function declareWinner() {
 	let popup = document.getElementById(winner[0] + "_winPopup");
 	let pot = allBets.reduce((sum, a) => sum + a, 0);
 	players[winner[0]].cash += pot;
-	popup.textContent = handsRanking[winner[1]] + " You won $" + pot;
+	popup.innerHTML = `${handsRanking[winner[1]]}<br>You won $${pot}`;
 	popup.style.display = "block";
 
 	setTimeout(function() {
