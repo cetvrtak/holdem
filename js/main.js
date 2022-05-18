@@ -293,18 +293,24 @@ function sortRanks(player)
 function determineScore(player) {
 	player.score = 0;
 	let cardsCount = 0;
-	let i = 0;
-	while (cardsCount < 5)
+	for (var rank of player.sortedRanks)
 	{
-		player.score += Math.pow(player.sortedRanks[i][1], 2);
-		cardsCount += player.sortedRanks[i][1];
-		console.log(player.sortedRanks[i][1], cardsCount, player.score);
-		i++;
+		cardsCount += rank[1];
+		if (cardsCount <= 5)
+		{
+			player.score += Math.pow(rank[1], 2);
+			console.log(rank[1], cardsCount, player.score);
+		}
+		else
+		{
+			// The rest (5 - (cardsCount - rank[1])) can be:
+			// 1: in case of 3x two pair or four of a kind + one pair or better
+			// 2: in case of 2x three of a kind
+			player.score += Math.pow(5 - (cardsCount - rank[1]), 2);
+			console.log("rest", Math.pow(5 - (cardsCount - rank[1]), 2), player.score);
+			break;
+		}
 	}
-	// The rest (5 - cardsCount) can be:
-	// 1: in case of 3x two pair or four of a kind + one pair or better
-	// 2: in case of 2x three of a kind
-	player.score += Math.pow(5 - cardsCount, 2);
 	console.log("score:", player.score);
 }
 
