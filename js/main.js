@@ -53,6 +53,7 @@ function *deal() {
 function clearTable() {
 	for (var slot of slots) {
 		document.getElementById(slot.id).textContent = "";
+		document.getElementById(slot.id).style.opacity = "1";
 		slot.card = [];
 	}
 }
@@ -323,6 +324,8 @@ function declareWinner() {
 	popup.innerHTML = `${handsRanking[winner[1]]}<br>You won $${pot}`;
 	popup.style.display = "block";
 
+	highlightWinningHand(winner[0]);
+
 	setTimeout(function() {
 		popup.style.display = "none";
 		document.getElementById(winner[0] + "_cash").textContent = "$" + players[winner[0]].cash;
@@ -424,4 +427,55 @@ function breakTie(p1, p2) {
 		console.log(winner.username, "wins a tie-break with ", winner.sortedRanks[i][0]);
 		return winner;
 	}
+}
+
+function highlightWinningHand(p) {
+	for (const slot of slots) slot.style.opacity = "0.1";
+
+	let winningSlots = [];
+	let cardsCount = 0;
+	for (const rank of players[p].sortedRanks)
+	{
+		cardsCount += rank[1];
+		if (cardsCount <= 5)
+		{
+			winningSlots.push(...getSlots(p, ...rank));
+		}
+		else
+		{
+			winningSlots.push(...getSlots(p, rank[0], 5 - (cardsCount - rank[1])));
+			break;
+		}
+	}
+	let highlight = {
+		*generator() {
+			for (let i = 1; i <= 30; i++)
+			{
+				setTimeout(function() {
+					for (const slot of winningSlots) slot.style.opacity = 0.03333 * i;
+					it.next();
+				}, 33);
+				yield;
+			}
+		}
+	}
+	var it = highlight.generator();
+	it.next();
+}
+
+function getSlots(playerId, rank, number) {
+	let slotsFound = [];
+	for (const slot of slots)
+	{
+		if (slotsFound.length == number) break;
+		if (players[slot.id.substring(0, 2)] && slot.id.substring(0, 2) != playerId)
+		{
+			continue;
+		}
+		if (slot.card[0] == rank)
+		{
+			slotsFound.push(slot);
+		}
+	}
+	return slotsFound;
 }
