@@ -185,6 +185,35 @@ function placeBet(p) {
 	document.getElementById(p + "_betAmount").value = Math.abs(bets[p] - getMaxBet());
 	document.getElementById(p + "_betAmount").min = Math.abs(bets[p] - getMaxBet());
 	updateActionButton(p);
+	startTimer(p);
+}
+
+function startTimer(playerId) {
+	document.getElementById(`${playerId}_action`).addEventListener("click", function() {
+		it.return();
+	});
+	document.getElementById(`${playerId}_timer`).textContent = 10;
+	let timer = {
+		*generator() {
+			for (let i = 9; i >= 0 ; i--) {
+				setTimeout(function() {
+					console.log(i);
+					document.getElementById(`${playerId}_timer`).textContent = i;
+					if (i == 0)
+					{
+						document.getElementById(`${playerId}_action`).click();
+					}
+					else
+					{
+						it.next();
+					}
+				}, 1000);
+				yield;
+			}
+		}
+	}
+	var it = timer.generator();
+	it.next();
 }
 
 document.getElementById("p1_action").addEventListener("click", function() {

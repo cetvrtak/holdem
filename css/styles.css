@@ -143,7 +143,7 @@
 #p1_betPopup, #p2_betPopup, #p1_winPopup, #p2_winPopup {
 	position: absolute;
 	display: none;
-	width: 133px;
+	width: 174px;
 	border: 1px solid black;
 	border-radius: 10px;
 	padding: 10px;
@@ -159,13 +159,24 @@
 }
 
 #p1_betAmount, #p2_betAmount {
-	width: 45%;
+	width: 45px;
 	border-radius: 10px;
 }
 
 #p1_action, #p2_action {
-	width: 50%;
+	width: 62px;
 	text-align: center;
+}
+
+#p1_timer, #p2_timer {
+	float: right;
+	width: 30px;
+	height: 30px;
+	background-color: lightskyblue;
+	font-weight: bold;
+	text-align: center;
+	border: 1px solid black;
+	border-radius: 15px;
 }
 
 #main_menu {
