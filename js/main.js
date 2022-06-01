@@ -5,9 +5,23 @@ var tableCtx = tableCnv.getContext("2d");
 var tableImg = new Image();
 tableImg.src = "images/table_trimmed_rotated.png";
 tableImg.onload = function() {
-	tableCnv.width = tableImg.width;
-	tableCnv.height = tableImg.height;
+	tableCnv.style.width = "100%";
+	tableCnv.style.height = tableImg.height / tableImg.width;
+	tableCnv.width = tableCnv.offsetWidth;
+	tableCnv.height = tableCnv.width * tableImg.height / tableImg.width;
 	tableCtx.drawImage(tableImg, 0, 0, tableCnv.width, tableCnv.height);
+};
+
+var handsCnv = document.getElementById("hands_img");
+var handsCtx = handsCnv.getContext("2d");
+var handsImg = new Image();
+handsImg.src = "images/Poker-hands-sheet.jpg";
+handsImg.onload = function() {
+	handsCnv.style.width = "99%"; // TODO - investigate why 100% adds the vertical scroll bar
+	handsCnv.style.height = handsImg.height / handsImg.width;
+	handsCnv.height = window.innerHeight;
+	handsCnv.width = handsCnv.height * handsImg.width / handsImg.height;
+	handsCtx.drawImage(handsImg, 0, 0, handsCnv.width, handsCnv.height);
 };
 
 var it = deal();
@@ -375,9 +389,6 @@ document.getElementById("single_player").addEventListener("click", function() {
 	p1.click();
 	p1.style.display = "none";
 	document.getElementById("p2").style.display = "none";
-
-	document.body.style.zoom=1.65;
-	window.scrollBy(180, 0);
 });
 
 document.getElementById("multi_player").addEventListener("click", function() {
