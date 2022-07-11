@@ -1,5 +1,23 @@
-#table {
+* {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+}
+
+/* MAIN */
+main {
+	width: 100%;
+}
+
+.container {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+}
+
+.table {
 	position: relative;
+	width: 100%;
 }
 
 #players {
@@ -179,10 +197,12 @@
 	border-radius: 15px;
 }
 
-#main_menu {
-	position: fixed;
-	left: 360px;
-	top: 75px;
+.main_menu {
+	display: flex;
+	flex-direction: column;
+	position: absolute;
+	left: 338px;
+	top: 150px;
 	z-index: 40;
 	width: 250px;
 	border: 1px solid grey;

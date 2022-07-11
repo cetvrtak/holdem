@@ -112,7 +112,7 @@ function sit(evt) {
 
 document.getElementsByClassName("close")[0].addEventListener("click", function() {
 	closeLogin();
-	document.getElementById("main_menu").style.display = "block";
+	document.querySelector(".main_menu").style.display = "block";
 })
 
 function closeLogin() {
@@ -382,7 +382,7 @@ var singlePlayer;
 document.getElementById("single_player").addEventListener("click", function() {
 	singlePlayer = true;
 	document.getElementById("players").style.display = "block";
-	document.getElementById("main_menu").style.display = "none";
+	document.querySelector(".main_menu").style.display = "none";
 
 	// Automatically log players in
 	var p1 = document.getElementById("p1");
@@ -393,7 +393,7 @@ document.getElementById("single_player").addEventListener("click", function() {
 
 document.getElementById("multi_player").addEventListener("click", function() {
 	document.getElementById("players").style.display = "block";
-	document.getElementById("main_menu").style.display = "none";
+	document.querySelector(".main_menu").style.display = "none";
 });
 
 function getNextPlayer(p) {

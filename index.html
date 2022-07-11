@@ -1,85 +1,91 @@
 <!DOCTYPE html>
 <html>
-<head>
-	<title>Hold'Em</title>
-	<link rel="stylesheet" href="css/bootstrap.min.css">
-	<link rel="stylesheet" href="css/styles.css">
-</head>
-<body>
-	<div id="main_menu">
-		<div id="menu_options" class="container d-flex flex-column justify-content-center">
-			<button id="single_player">Single player</button>
-			<button disabled id="multi_player">Multi player</button>
-		</div>
-	</div>
-	<div class="row">
-		<div id="table" class="col-12 col-lg-8">
-			<canvas id="table_img"></canvas>
-			<div id="players">
-				<div id="pot"></div>
-				<div id="login">
-					<span class="close" onclick="closeLogin()">&times;</span>
-					<span><br></span>
-					<input type="text" name="username" id="username" placeholder="Username">
-					<span><br><br></span>
-					<label for="buyin">Buy-in:</label>
-					<input type="number" name="buyin" id="buyin">
-					<button id="confirm_login" onclick="login()">Confirm</button>
-				</div>
+  <head>
+    <title>Hold'Em</title>
+    <!-- <link rel="stylesheet" href="css/bootstrap.min.css" /> -->
+    <link rel="stylesheet" href="css/styles.css" />
+  </head>
+  <body>
+    <main class="container">
+      <div class="table">
+        <div class="main_menu">
+          <button id="single_player">Single player</button>
+          <button disabled id="multi_player">Multi player</button>
+        </div>
 
-				<div id="player_2" class="container">
-					<div id="p2_data" class="container">
-						<div id="p2_username"></div>
-						<button id="p2" onclick="sit(event)">Sit</button>
-					</div>
-					<div class="d-flex flex-row justify-content-evenly">
-						<div id="p2c1"></div>
-						<div id="p2c2"></div>
-						<div id="p2_cash"></div>
-						<canvas id="p2_stack"></canvas>
-					</div>
-					<div id="p2_bet"></div>
-					<div id="p2_betPopup">
-						<input type="number" name="p2_betAmount" id="p2_betAmount">
-						<button id="p2_action">Call</button>
-					</div>
-					<div id="p2_winPopup"></div>
-				</div>
-				<div id="dealer" class="container">
-					<div class="d-flex flex-row justify-content-evenly">
-						<div id="flop_1"></div>
-						<div id="flop_2"></div>
-						<div id="flop_3"></div>
-						<div id="turn"></div>
-						<div id="river"></div>
-					</div>
-					<button id="deal">Deal</button>
-				</div>
-				<div id="player_1" class="container">
-					<div class="d-flex flex-row justify-content-evenly">
-						<div id="p1c1"></div>
-						<div id="p1c2"></div>
-						<div id="p1_cash"></div>
-						<canvas id="p1_stack"></canvas>
-					</div>
-					<div id="p1_betPopup">
-						<input type="number" name="p1_betAmount" id="p1_betAmount">
-						<button id="p1_action">Call</button>
-						<div id="p1_timer"></div>
-					</div>
-					<div id="p1_bet"></div>
-					<div id="p1_winPopup"></div>
-					<div id="p1_data" class="container">
-						<div id="p1_username"></div>
-						<button id="p1" onclick="sit(event)">Sit</button>
-					</div>
-				</div>
-			</div>
-		</div>
-		<div id="hands_sheet" class="col-12 col-lg-4">
-			<canvas id="hands_img"></canvas>
-		</div>
-	</div>
-	<script src="js/main.js"></script>
-</body>
+        <canvas id="table_img"></canvas>
+
+        <div id="players">
+          <div id="pot"></div>
+          <div id="login">
+            <span class="close" onclick="closeLogin()">&times;</span>
+            <span><br /></span>
+            <input
+              type="text"
+              name="username"
+              id="username"
+              placeholder="Username"
+            />
+            <span><br /><br /></span>
+            <label for="buyin">Buy-in:</label>
+            <input type="number" name="buyin" id="buyin" />
+            <button id="confirm_login" onclick="login()">Confirm</button>
+          </div>
+
+          <div id="player_2" class="container">
+            <div id="p2_data" class="container">
+              <div id="p2_username"></div>
+              <button id="p2" onclick="sit(event)">Sit</button>
+            </div>
+            <div class="d-flex flex-row justify-content-evenly">
+              <div id="p2c1"></div>
+              <div id="p2c2"></div>
+              <div id="p2_cash"></div>
+              <canvas id="p2_stack"></canvas>
+            </div>
+            <div id="p2_bet"></div>
+            <div id="p2_betPopup">
+              <input type="number" name="p2_betAmount" id="p2_betAmount" />
+              <button id="p2_action">Call</button>
+            </div>
+            <div id="p2_winPopup"></div>
+          </div>
+          <div id="dealer" class="container">
+            <div class="d-flex flex-row justify-content-evenly">
+              <div id="flop_1"></div>
+              <div id="flop_2"></div>
+              <div id="flop_3"></div>
+              <div id="turn"></div>
+              <div id="river"></div>
+            </div>
+            <button id="deal">Deal</button>
+          </div>
+          <div id="player_1" class="container">
+            <div class="d-flex flex-row justify-content-evenly">
+              <div id="p1c1"></div>
+              <div id="p1c2"></div>
+              <div id="p1_cash"></div>
+              <canvas id="p1_stack"></canvas>
+            </div>
+            <div id="p1_betPopup">
+              <input type="number" name="p1_betAmount" id="p1_betAmount" />
+              <button id="p1_action">Call</button>
+              <div id="p1_timer"></div>
+            </div>
+            <div id="p1_bet"></div>
+            <div id="p1_winPopup"></div>
+            <div id="p1_data" class="container">
+              <div id="p1_username"></div>
+              <button id="p1" onclick="sit(event)">Sit</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div id="hands_sheet" class="col-12 col-lg-4">
+        <canvas id="hands_img"></canvas>
+      </div>
+    </main>
+
+    <script src="js/main.js"></script>
+  </body>
 </html>
