@@ -1,4 +1,4 @@
-var slots = [p1c1,p1c2,p2c1,p2c2,flop_1,flop_2,flop_3,turn,river];
+var slots = [p0c1,p0c2,p1c1,p1c2,flop_1,flop_2,flop_3,turn,river];
 
 var tableCnv = document.getElementById("table_img");
 var tableCtx = tableCnv.getContext("2d");
@@ -50,7 +50,7 @@ function *deal() {
 		setTimeout(function() {
 			displayCard(slot);
 
-			if (slot.id != "p2c2" && slot.id != "flop_3" && slot.id != "turn" && slot.id != "river")
+			if (slot.id != "p1c2" && slot.id != "flop_3" && slot.id != "turn" && slot.id != "river")
 			{
 				it.next();
 			}
@@ -136,8 +136,8 @@ function login() {
 
 	if (singlePlayer)
 	{
-		players["p1"].human = true;
-		players["p2"] = { username: "john_doe", cash: player.cash };
+		players["p0"].human = true;
+		players["p1"] = { username: "john_doe", cash: player.cash };
 	}
 
 	updatePlayers();
@@ -180,11 +180,11 @@ function updateBets() {
 	document.getElementById("pot").textContent = "Pot: $" + allBets.reduce((sum, a) => sum + a, 0);
 }
 
+document.getElementById("p0_betAmount").addEventListener("change", function() {
+	updateActionButton("p0");
+});
 document.getElementById("p1_betAmount").addEventListener("change", function() {
 	updateActionButton("p1");
-});
-document.getElementById("p2_betAmount").addEventListener("change", function() {
-	updateActionButton("p2");
 });
 function placeBet(p) {
 	if (!players[p].human)
@@ -230,11 +230,11 @@ function startTimer(playerId) {
 	it.next();
 }
 
+document.getElementById("p0_action").addEventListener("click", function() {
+	submitBet("p0")
+});
 document.getElementById("p1_action").addEventListener("click", function() {
 	submitBet("p1")
-});
-document.getElementById("p2_action").addEventListener("click", function() {
-	submitBet("p2")
 });
 function submitBet(p) {
 	let betAmount = +document.getElementById(p + "_betAmount").value;
@@ -292,7 +292,7 @@ var handsRanking = {5: "High Card",
 		19: "Royal Flush"};
 
 function determineWinner() {
-	let winner = ["p1", 0];
+	let winner = ["p0", 0];
 	for (const playerId in players)
 	{
 		let player = players[playerId];
@@ -385,10 +385,10 @@ document.getElementById("single_player").addEventListener("click", function() {
 	document.querySelector(".main_menu").style.display = "none";
 
 	// Automatically log players in
-	var p1 = document.getElementById("p1");
-	p1.click();
-	p1.style.display = "none";
-	document.getElementById("p2").style.display = "none";
+	var p0 = document.getElementById("p0");
+	p0.click();
+	p0.style.display = "none";
+	document.getElementById("p1").style.display = "none";
 });
 
 document.getElementById("multi_player").addEventListener("click", function() {
@@ -401,7 +401,7 @@ function getNextPlayer(p) {
 	{
 		if (player > p) return player;
 	}
-	return "p1";
+	return "p0";
 }
 
 function getMaxBet() {
@@ -456,14 +456,14 @@ function aiBet(p) {
 	return Math.abs(bets[p] - getMaxBet());
 }
 
-function breakTie(p1, p2) {
-	for (var i = 0; p1.sortedRanks[i] && p2.sortedRanks[i]; i++)
+function breakTie(p0, p1) {
+	for (var i = 0; p0.sortedRanks[i] && p1.sortedRanks[i]; i++)
 	{
-		if (ranks.indexOf(p1.sortedRanks[i][0]) == ranks.indexOf(p2.sortedRanks[i][0]))
+		if (ranks.indexOf(p0.sortedRanks[i][0]) == ranks.indexOf(p1.sortedRanks[i][0]))
 		{
 			continue;
 		}
-		var winner = ranks.indexOf(p1.sortedRanks[i][0]) < ranks.indexOf(p2.sortedRanks[i][0]) ? p1 : p2;
+		var winner = ranks.indexOf(p0.sortedRanks[i][0]) < ranks.indexOf(p1.sortedRanks[i][0]) ? p0 : p1;
 		console.log(winner.username, "wins a tie-break with ", winner.sortedRanks[i][0]);
 		return winner;
 	}

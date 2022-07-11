@@ -27,65 +27,65 @@ main {
 	top: 0;
 }
 
-#player_1, #player_2 {
+#player_0, #player_1 {
 	position: relative;
 	left: 408px;
 	width: 100px;
 }
 
-#player_1 {
+#player_0 {
 	top: 420px;
 }
 
-#player_2 {
+#player_1 {
 	top: 13px;
 }
 
-#p1, #p2 {
+#p0, #p1 {
 	position: relative;
 	left: 31px;
 }
 
-#p1_username, #p2_username {
+#p0_username, #p1_username {
 	display: none;
 	height: 30px;
 	color: white;
 }
 
-#p1c1, #p1c2, #p1_cash, #p1_stack, #p1_bet {
+#p0c1, #p0c2, #p0_cash, #p0_stack, #p0_bet {
 	position: absolute;
 	bottom: 33px;
 	width: 41px;
 	height: 54px;
 }
 
-#p1c1, #p2c1 {
+#p0c1, #p1c1 {
 	left: 40px;
 }
 
-#p1c2, #p2c2 {
+#p0c2, #p1c2 {
 	left: 75px;
 }
 
-#p1_cash, #p2_cash {
+#p0_cash, #p1_cash {
 	height: 30px;
 	left: 178px;
 	color: white;
 }
 
-#p2c1, #p2c2, #p2_cash, #p2_stack, #p2_bet {
+#p1c1, #p1c2, #p1_cash, #p1_stack, #p1_bet {
 	position: absolute;
 	width: 41px;
 	height: 54px;
 }
 
-#p1_stack, #p2_stack, #p1_bet, #p2_bet {
+#p0_stack, #p1_stack, #p0_bet, #p1_bet {
 	left: 145px;
 	height: 30px;
 	width: 30px;
 }
 
-#p1_bet, #p2_bet {
+#p0_bet, #p1_bet {
 	color: white;
 	margin: 30px 0px;
 }
@@ -158,7 +158,7 @@ main {
 	color: white;
 }
 
-#p1_betPopup, #p2_betPopup, #p1_winPopup, #p2_winPopup {
+#p0_betPopup, #p1_betPopup, #p0_winPopup, #p1_winPopup {
 	position: absolute;
 	display: none;
 	width: 174px;
@@ -168,25 +168,25 @@ main {
 	background: white;
 }
 
-#p1_betPopup, #p1_winPopup {
+#p0_betPopup, #p0_winPopup {
 	bottom: 94px;
 }
 
-#p2_betPopup, #p2_winPopup {
+#p1_betPopup, #p1_winPopup {
 	top: 82px;
 }
 
-#p1_betAmount, #p2_betAmount {
+#p0_betAmount, #p1_betAmount {
 	width: 45px;
 	border-radius: 10px;
 }
 
-#p1_action, #p2_action {
+#p0_action, #p1_action {
 	width: 62px;
 	text-align: center;
 }
 
-#p1_timer, #p2_timer {
+#p0_timer, #p1_timer {
 	float: right;
 	width: 30px;
 	height: 30px;
